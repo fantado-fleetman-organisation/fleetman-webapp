@@ -33,12 +33,12 @@ pipeline {
       }
       stage('Login to ECR') {
       steps {
-        sh '''
+        sh """#!/bin/bash
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
           aws configure set region ${params.AWS_REGION}
           aws ecr get-login-password --region ${params.AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${params.AWS_REGION}.amazonaws.com
-        '''
+        """
           }
         }
       stage('Build and Push Image') {
@@ -54,10 +54,10 @@ pipeline {
       stage('Deploy to Cluster') {
           steps {
             //sh 'envsubst < ${WORKSPACE}/deploy.yaml | kubectl apply -f -'
-            sh '''
+            sh """#!/bin/bash
             export REPOSITORY_TAG=$IMAGE_TAG
             envsubst < ${WORKSPACE}/deploy.yaml | kubectl apply -f -
-           '''
+           """
           }
       }
    }
