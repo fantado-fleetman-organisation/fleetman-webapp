@@ -17,7 +17,6 @@ pipeline {
      AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
      IMAGE_TAG = "${AWS_ACCOUNT_ID}.dkr.ecr.${params.AWS_REGION}.amazonaws.com/${params.ECR_REPO_NAME}:${BUILD_ID}"
   }
-   }
 
    stages {
       stage('Preparation') {
