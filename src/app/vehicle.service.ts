@@ -6,7 +6,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import {  LatLng } from 'leaflet';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class VehicleService  {
 
   subscription: BehaviorSubject<Vehicle>;

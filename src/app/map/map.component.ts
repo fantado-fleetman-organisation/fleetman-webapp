@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { icon, latLng, Layer, Marker, marker, tileLayer, Map, point, polyline } from 'leaflet';
 
 import { VehicleService } from '../vehicle.service';
@@ -8,7 +8,8 @@ import { Vehicle } from '../vehicle';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  imports: [LeafletModule]
 })
 export class MapComponent implements OnInit {
 
@@ -46,8 +47,8 @@ export class MapComponent implements OnInit {
                                    icon: icon( {
                                                  iconSize: [ 25, 41 ],
                                                  iconAnchor: [ 11, 41 ],
-                                                 iconUrl: 'assets/marker-icon.png',
-                                                 shadowUrl: 'assets/marker-shadow.png'
+                                                 iconUrl: 'marker-icon.png',
+                                                 shadowUrl: 'marker-shadow.png'
                                                }),
                                    title: vehicle.name
                                  }).bindTooltip(vehicle.name, {permanent:true,  offset: point({x: 0, y: 0})});
@@ -58,8 +59,6 @@ export class MapComponent implements OnInit {
         this.markers[foundIndex].setLatLng(latLng(vehicle.lat, vehicle.lng));
        }
        if (this.centerVehicle == vehicle.name) {
-         //this.map.setView([vehicle.lat,vehicle.lng],
-        //                   this.map.getZoom(), {"animate": true});
          this.selectedVehicleHistory.addLatLng(latLng(vehicle.lat, vehicle.lng));
        }
      });
@@ -82,6 +81,6 @@ export class MapComponent implements OnInit {
        if (newHistory ==null) return;
        this.selectedVehicleHistory = polyline(newHistory, {weight:10, opacity:0.5, color:'red'});
        this.selectedVehicleHistory.addTo(this.map);
-     });
+     });     
    }
 }

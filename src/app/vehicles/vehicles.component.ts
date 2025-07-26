@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehicle } from '../vehicle';
 import { VehicleService } from '../vehicle.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.css']
+  styleUrls: ['./vehicles.component.css'],
+  imports: [CommonModule]
 })
 export class VehiclesComponent implements OnInit {
 
